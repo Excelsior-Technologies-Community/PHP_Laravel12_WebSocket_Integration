@@ -7,15 +7,17 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MessageSent implements ShouldBroadcast
+class UserTyping implements ShouldBroadcast
 {
     use Dispatchable, SerializesModels;
 
-    public $message;
+    public $user_id;
+    public $name;
 
-    public function __construct($message)
+    public function __construct($user_id, $name)
     {
-        $this->message = $message;
+        $this->user_id = $user_id;
+        $this->name    = $name;
     }
 
     public function broadcastOn(): array
@@ -25,6 +27,6 @@ class MessageSent implements ShouldBroadcast
 
     public function broadcastAs(): string
     {
-        return 'App\\Events\\MessageSent';
+        return 'App\\Events\\UserTyping';
     }
 }

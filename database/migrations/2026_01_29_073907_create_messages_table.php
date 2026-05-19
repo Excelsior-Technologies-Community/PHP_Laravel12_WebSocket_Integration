@@ -6,23 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-Schema::create('messages', function (Blueprint $table) {
-    $table->id();
-    $table->string('user');
-    $table->text('message');
-    $table->timestamps();
-});
-
+        Schema::create('messages', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('guest_name')->nullable();
+            $table->text('message');
+            $table->string('file_path')->nullable();
+            $table->json('reactions')->nullable();
+            $table->timestamps();
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('messages');

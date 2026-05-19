@@ -2,11 +2,15 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class MessageDeleted implements ShouldBroadcast
 {
+    use Dispatchable, SerializesModels;
+
     public $id;
 
     public function __construct($id)
@@ -14,13 +18,13 @@ class MessageDeleted implements ShouldBroadcast
         $this->id = $id;
     }
 
-    public function broadcastOn()
+    public function broadcastOn(): array
     {
-        return new PresenceChannel('chat');
+        return [new Channel('chat')];
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
-        return 'message.deleted';
+        return 'App\\Events\\MessageDeleted';
     }
 }
