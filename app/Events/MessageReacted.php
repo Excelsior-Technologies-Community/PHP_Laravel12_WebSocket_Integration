@@ -7,15 +7,17 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MessageSent implements ShouldBroadcast
+class MessageReacted implements ShouldBroadcast
 {
     use Dispatchable, SerializesModels;
 
-    public $message;
+    public $message_id;
+    public $emoji;
 
-    public function __construct($message)
+    public function __construct($message_id, $emoji)
     {
-        $this->message = $message;
+        $this->message_id = $message_id;
+        $this->emoji      = $emoji;
     }
 
     public function broadcastOn(): array
@@ -25,6 +27,6 @@ class MessageSent implements ShouldBroadcast
 
     public function broadcastAs(): string
     {
-        return 'App\\Events\\MessageSent';
+        return 'App\\Events\\MessageReacted';
     }
 }

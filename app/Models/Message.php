@@ -9,6 +9,20 @@ class Message extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user', 'message']; // allow mass assignment
-}
+    protected $fillable = [
+        'user_id',
+        'guest_name',
+        'message',
+        'file_path',
+        'reactions',
+    ];
 
+    protected $casts = [
+        'reactions' => 'array',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}
