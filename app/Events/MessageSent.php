@@ -1,4 +1,5 @@
 <?php
+// app/Events/MessageSent.php
 
 namespace App\Events;
 
@@ -18,12 +19,12 @@ class MessageSent implements ShouldBroadcast
         $this->message = $message;
     }
 
-    public function broadcastOn(): array
+    public function broadcastOn()
     {
-        return [new Channel('chat')];
+        return new Channel('chat');
     }
-
-    public function broadcastAs(): string
+    
+    public function broadcastAs()
     {
         return 'App\\Events\\MessageSent';
     }
