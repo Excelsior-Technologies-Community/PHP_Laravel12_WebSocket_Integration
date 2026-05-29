@@ -1,4 +1,5 @@
 <?php
+// app/Events/UserTyping.php
 
 namespace App\Events;
 
@@ -11,21 +12,19 @@ class UserTyping implements ShouldBroadcast
 {
     use Dispatchable, SerializesModels;
 
-    public $user_id;
     public $name;
 
-    public function __construct($user_id, $name)
+    public function __construct($name)
     {
-        $this->user_id = $user_id;
-        $this->name    = $name;
+        $this->name = $name;
     }
 
-    public function broadcastOn(): array
+    public function broadcastOn()
     {
-        return [new Channel('chat')];
+        return new Channel('chat');
     }
-
-    public function broadcastAs(): string
+    
+    public function broadcastAs()
     {
         return 'App\\Events\\UserTyping';
     }
